@@ -544,13 +544,10 @@ angular.module(PKG.name + '.commons')
       let sourceIdSplit;
 
       if (sourceIsPort) {
-        let portClass = getPortEndpointClass(newConnObj.source.classList);
-        // port endpoint marker is of the form "endpoint_UnionSplitter-9c1564a4-fc99-4927-bfc0-ef7a0bd607e1_port_string"
-        // We need everything between endpoint and _port_ as node id
-        // and type after _port_ as port name
-        sourceIdSplit = portClass.split('_');
-        connection.from = sourceIdSplit.slice(1, sourceIdSplit.length - 2).join('_');
-        connection.port = sourceIdSplit[sourceIdSplit.length - 1];
+        let nodeid = newConnObj.source.getAttribute('data-nodeid');
+        let portname = newConnObj.source.getAttribute('data-portname');
+        connection.from = nodeid;
+        connection.port = portname;
       } else if (sourceIsCondition) {
         sourceIdSplit = newConnObj.sourceId.split('_');
         connection.from = sourceIdSplit.slice(1, sourceIdSplit.length - 2).join('_');
